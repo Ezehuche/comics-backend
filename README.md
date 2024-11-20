@@ -76,6 +76,7 @@ http://localhost:3000/api-docs
   "code": "FXQL-200",  
   "data": [  
     {  
+      "EntryId": 1,
       "SourceCurrency": "USD",  
       "DestinationCurrency": "GBP",  
       "BuyPrice": 0.85,  
@@ -83,6 +84,7 @@ http://localhost:3000/api-docs
       "CapAmount": 10000  
     },  
     {  
+      "EntryId": 2,
       "SourceCurrency": "EUR",  
       "DestinationCurrency": "JPY",  
       "BuyPrice": 145.2,  
