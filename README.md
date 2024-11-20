@@ -1,15 +1,19 @@
 # Foreign Exchange Query Language (FXQL) Statement Parser Implementation
 
+## API ENDPOINT
+- [Live API Endpoint](https://fxql-backend.onrender.com) &mdash; The API was hosted on Render.
+- [API Reference Documentation](https://fxql-backend.onrender.com/api-docs) &mdash; The API Reference Doc was generated using swagger.
+
 ## Setup Instructions
 
-1. Clone the Repository
+1. **Clone the Repository**
   
 ```bash
 git clone <repository-url>
 cd <repository-folder>
 ```
 
-2. Install Dependencies
+2. **Install Dependencies**
 
 Run the following command to install all required dependencies:
 
@@ -17,7 +21,7 @@ Run the following command to install all required dependencies:
 npm install
 ```
 
-3. Set Up Environment Variables
+3. **Set Up Environment Variables**
 
 Create a `.env` file in the root directory and define the following variables:
 
@@ -27,7 +31,7 @@ NODE_ENV=development
 DB_TABLE_NAME=fxql_data
 ```
 
-4. Run Migrations:
+4. **Run Migrations:**
 
 Use Prisma to set up the database schema:
 
@@ -35,13 +39,13 @@ Use Prisma to set up the database schema:
 npx prisma migrate dev  
 ```
 
-5. Start the Application:
+5. **Start the Application:**
 
 ```bash
 npm run start:dev  
 ```
 
-6. Access API Documentation:
+6. **Access API Documentation:**
 
 Swagger API documentation is available at:
 
@@ -112,7 +116,7 @@ http://localhost:3000/api
 
 ## Development Commands
 
-* Run tests
+* **Run tests**
 
 ```bash
 npm run test
