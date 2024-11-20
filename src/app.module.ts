@@ -10,8 +10,8 @@ import { FXQLService } from 'src/services/fxql.service';
   imports: [
     ThrottlerModule.forRoot([
       {
-        ttl: 60000,
-        limit: 100,
+        ttl: 60,
+        limit: 10,
       },
     ]),
   ],
