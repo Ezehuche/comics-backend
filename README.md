@@ -9,8 +9,8 @@
 1. **Clone the Repository**
   
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/Ezehuche/mira-backend-test.git
+cd mira-backend-test
 ```
 
 2. **Install Dependencies**
