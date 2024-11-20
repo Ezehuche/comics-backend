@@ -28,7 +28,7 @@ Create a `.env` file in the root directory and define the following variables:
 ```plaintext
 DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
 NODE_ENV=development
-DB_TABLE_NAME=fxql_data
+DB_TABLE_NAME=fxql_data # The table name is used to clear the database before each test
 ```
 
 4. **Run Migrations:**
