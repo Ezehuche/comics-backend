@@ -50,7 +50,7 @@ npm run start:dev
 Swagger API documentation is available at:
 
 ```bash
-http://localhost:3000/api
+http://localhost:3000/api-docs
 ```  
 
 # API Documentation
