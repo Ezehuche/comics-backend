@@ -41,9 +41,8 @@ export class FXQLParser {
       );
     }
 
-    const results: ParsedFXQL[] = [];
-    const currencyRegex = /^[A-Z]{3}$/;
-    const numericRegex = /^\d+(\.\d+)?$/;
+    // const results: ParsedFXQL[] = [];
+    const results: Record<string, ParsedFXQL> = {};
 
     statements.forEach((stmt, idx) => {
       // Adjusted regex to handle flexible spacing
@@ -70,15 +69,24 @@ export class FXQLParser {
         capAmount,
       ] = match;
 
-      results.push({
+      const currencyPair = `${sourceCurrency}-${destinationCurrency}`;
+
+      //   results.push({
+      //     SourceCurrency: sourceCurrency,
+      //     DestinationCurrency: destinationCurrency,
+      //     BuyPrice: parseFloat(buyPrice),
+      //     SellPrice: parseFloat(sellPrice),
+      //     CapAmount: parseInt(capAmount, 10),
+      //   });
+      results[currencyPair] = {
         SourceCurrency: sourceCurrency,
         DestinationCurrency: destinationCurrency,
         BuyPrice: parseFloat(buyPrice),
         SellPrice: parseFloat(sellPrice),
         CapAmount: parseInt(capAmount, 10),
-      });
+      };
     });
 
-    return results;
+    return Object.values(results);
   }
 }
