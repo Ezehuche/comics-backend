@@ -12,7 +12,7 @@ import { GenerateController } from 'src/api/generate.controller';
     ThrottlerModule.forRoot([
       {
         ttl: 60,
-        limit: 100,
+        limit: 10,
       },
     ]),
   ],
