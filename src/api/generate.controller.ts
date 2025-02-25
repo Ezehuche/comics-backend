@@ -237,52 +237,68 @@ export class GenerateController {
         // we re-inject the story, then
         prompt,
       ]);
-      const config = {
-        vendor: 'SERVER' as LLMVendor,
-        apiKey: '',
-        modelId: '',
-        // "vendor": "OPENAI" as LLMVendor,
-        // "apiKey": process.env.AUTH_OPENAI_API_KEY as string,
-        // "modelId": process.env.LLM_OPENAI_API_MODEL as string
+      // const config = {
+      //   vendor: 'SERVER' as LLMVendor,
+      //   apiKey: '',
+      //   modelId: '',
+      //   // "vendor": "OPENAI" as LLMVendor,
+      //   // "apiKey": process.env.AUTH_OPENAI_API_KEY as string,
+      //   // "modelId": process.env.LLM_OPENAI_API_MODEL as string
+      // };
+      // console.log('Prompt ', prompt);
+      // let newStoryPanels: GeneratedPanel[] = await getStoryContinuation({
+      //   preset,
+      //   userStoryPrompt: prompt,
+      //   stylePrompt: stylePrompt ? stylePrompt : '',
+      //   nbPanelsToGenerate,
+      //   maxNbPanels: 6,
+      //   existingPanels: mergedStoryPanels as GeneratedPanel[],
+      //   llmVendorConfig: config,
+      // });
+      // console.log('panels ', newStoryPanels);
+      // let startNewPanel =
+      //   newStoryPanels.length !== nbPanelsToGenerate ? true : false;
+
+      // if (newStoryPanels.length === nbPanelsToGenerate) {
+      //   startNewPanel = newStoryPanels.every((panel) =>
+      //     Object.values(panel).every(
+      //       (value) => value === '' && value === null && value === undefined,
+      //     ),
+      //   );
+      // }
+      // if (startNewPanel) {
+      //   const newConfig = {
+      //     vendor: 'OPENAI' as LLMVendor,
+      //     apiKey: process.env.AUTH_OPENAI_API_KEY as string,
+      //     modelId: process.env.LLM_OPENAI_API_MODEL as string,
+      //   };
+
+      //   newStoryPanels = await getStoryContinuation({
+      //     preset,
+      //     userStoryPrompt: prompt,
+      //     stylePrompt: stylePrompt ? stylePrompt : '',
+      //     nbPanelsToGenerate,
+      //     maxNbPanels: 6,
+      //     existingPanels: mergedStoryPanels as GeneratedPanel[],
+      //     llmVendorConfig: newConfig,
+      //   });
+      // }
+
+      const newConfig = {
+        vendor: 'OPENAI' as LLMVendor,
+        apiKey: process.env.AUTH_OPENAI_API_KEY as string,
+        modelId: process.env.LLM_OPENAI_API_MODEL as string,
       };
-      console.log('Prompt ', prompt);
-      let newStoryPanels: GeneratedPanel[] = await getStoryContinuation({
+
+      const newStoryPanels = await getStoryContinuation({
         preset,
         userStoryPrompt: prompt,
         stylePrompt: stylePrompt ? stylePrompt : '',
         nbPanelsToGenerate,
         maxNbPanels: 6,
         existingPanels: mergedStoryPanels as GeneratedPanel[],
-        llmVendorConfig: config,
+        llmVendorConfig: newConfig,
       });
-      console.log('panels ', newStoryPanels);
-      let startNewPanel =
-        newStoryPanels.length !== nbPanelsToGenerate ? true : false;
-
-      if (newStoryPanels.length === nbPanelsToGenerate) {
-        startNewPanel = newStoryPanels.every((panel) =>
-          Object.values(panel).every(
-            (value) => value === '' && value === null && value === undefined,
-          ),
-        );
-      }
-      if (startNewPanel) {
-        const newConfig = {
-          vendor: 'OPENAI' as LLMVendor,
-          apiKey: process.env.AUTH_OPENAI_API_KEY as string,
-          modelId: process.env.LLM_OPENAI_API_MODEL as string,
-        };
-
-        newStoryPanels = await getStoryContinuation({
-          preset,
-          userStoryPrompt: prompt,
-          stylePrompt: stylePrompt ? stylePrompt : '',
-          nbPanelsToGenerate,
-          maxNbPanels: 6,
-          existingPanels: mergedStoryPanels as GeneratedPanel[],
-          llmVendorConfig: newConfig,
-        });
-      }
       let getRenderedScenes: any = [];
 
       const newRenderedScenes = await Promise.all(
@@ -440,41 +456,57 @@ export class GenerateController {
         // we re-inject the story, then
         newPrompt,
       ]);
-      const config = {
-        vendor: 'SERVER' as LLMVendor,
-        apiKey: '',
-        modelId: '',
-        // "vendor": "OPENAI" as LLMVendor,
-        // "apiKey": process.env.AUTH_OPENAI_API_KEY as string,
-        // "modelId": process.env.LLM_OPENAI_API_MODEL as string
+      // const config = {
+      //   vendor: 'SERVER' as LLMVendor,
+      //   apiKey: '',
+      //   modelId: '',
+      //   // "vendor": "OPENAI" as LLMVendor,
+      //   // "apiKey": process.env.AUTH_OPENAI_API_KEY as string,
+      //   // "modelId": process.env.LLM_OPENAI_API_MODEL as string
+      // };
+      // let panels: GeneratedPanel[] = await getStoryContinuation({
+      //   preset,
+      //   userStoryPrompt: newPrompt,
+      //   stylePrompt: stylePrompt ? stylePrompt : '',
+      //   nbPanelsToGenerate: 1,
+      //   maxNbPanels: 1,
+      //   existingPanels: [],
+      //   llmVendorConfig: config,
+      // });
+
+      // if (panels[0].instructions === '') {
+      //   const newConfig = {
+      //     vendor: 'OPENAI' as LLMVendor,
+      //     apiKey: process.env.AUTH_OPENAI_API_KEY as string,
+      //     modelId: process.env.LLM_OPENAI_API_MODEL as string,
+      //   };
+
+      //   panels = await getStoryContinuation({
+      //     preset,
+      //     userStoryPrompt: newPrompt,
+      //     stylePrompt: stylePrompt ? stylePrompt : '',
+      //     nbPanelsToGenerate: 1,
+      //     maxNbPanels: 1,
+      //     existingPanels: [],
+      //     llmVendorConfig: newConfig,
+      //   });
+      // }
+
+      const newConfig = {
+        vendor: 'OPENAI' as LLMVendor,
+        apiKey: process.env.AUTH_OPENAI_API_KEY as string,
+        modelId: process.env.LLM_OPENAI_API_MODEL as string,
       };
-      let panels: GeneratedPanel[] = await getStoryContinuation({
+
+      const panels = await getStoryContinuation({
         preset,
         userStoryPrompt: newPrompt,
         stylePrompt: stylePrompt ? stylePrompt : '',
         nbPanelsToGenerate: 1,
         maxNbPanels: 1,
         existingPanels: [],
-        llmVendorConfig: config,
+        llmVendorConfig: newConfig,
       });
-
-      if (panels[0].instructions === '') {
-        const newConfig = {
-          vendor: 'OPENAI' as LLMVendor,
-          apiKey: process.env.AUTH_OPENAI_API_KEY as string,
-          modelId: process.env.LLM_OPENAI_API_MODEL as string,
-        };
-
-        panels = await getStoryContinuation({
-          preset,
-          userStoryPrompt: newPrompt,
-          stylePrompt: stylePrompt ? stylePrompt : '',
-          nbPanelsToGenerate: 1,
-          maxNbPanels: 1,
-          existingPanels: [],
-          llmVendorConfig: newConfig,
-        });
-      }
 
       const newPanel = joinWords([
         // what we do here is that ideally we give full control to the LLM for prompting,
