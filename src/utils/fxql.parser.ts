@@ -71,13 +71,6 @@ export class FXQLParser {
 
       const currencyPair = `${sourceCurrency}-${destinationCurrency}`;
 
-      //   results.push({
-      //     SourceCurrency: sourceCurrency,
-      //     DestinationCurrency: destinationCurrency,
-      //     BuyPrice: parseFloat(buyPrice),
-      //     SellPrice: parseFloat(sellPrice),
-      //     CapAmount: parseInt(capAmount, 10),
-      //   });
       results[currencyPair] = {
         SourceCurrency: sourceCurrency,
         DestinationCurrency: destinationCurrency,
