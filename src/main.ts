@@ -5,7 +5,15 @@ import { logger } from './utils/logger.config';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+    cors: {
+      credentials: true,
+      exposedHeaders: ['reload', 'onboarding', 'activate'],
+      origin: ['https://app-aagdl0t4zli.canva-apps.com'],
+    },
+  });
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
