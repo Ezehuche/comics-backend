@@ -10,6 +10,9 @@ export async function predict({
   nbMaxNewTokens,
   llmVendorConfig,
 }: LLMPredictionFunctionParams): Promise<string> {
+  // const openaiApiKey = `${
+  //   llmVendorConfig.apiKey || process.env.AUTH_OPENAI_API_KEY || ''
+  // }`;
   const openaiApiKey = `${
     llmVendorConfig.apiKey || process.env.AUTH_OPENAI_API_KEY || ''
   }`;

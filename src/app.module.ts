@@ -5,6 +5,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 // import { PrismaService } from 'src/services/prisma.service';
 // import { FXQLController } from 'src/api/fxql.controller';
 import { GenerateController } from 'src/api/generate.controller';
+import { TestController } from 'src/api/test.controller';
 // import { FXQLService } from 'src/services/fxql.service';
 
 @Module({
@@ -16,7 +17,7 @@ import { GenerateController } from 'src/api/generate.controller';
       },
     ]),
   ],
-  controllers: [AppController, GenerateController],
+  controllers: [AppController, GenerateController, TestController],
   providers: [AppService],
 })
 export class AppModule {}

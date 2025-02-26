@@ -12,6 +12,7 @@ export const getStoryContinuation = async ({
   maxNbPanels,
   existingPanels = [],
   llmVendorConfig,
+  test = false,
 }: {
   preset: Preset;
   stylePrompt?: string;
@@ -20,6 +21,7 @@ export const getStoryContinuation = async ({
   maxNbPanels: number;
   existingPanels?: GeneratedPanel[];
   llmVendorConfig: LLMVendorConfig;
+  test?: boolean;
 }): Promise<GeneratedPanel[]> => {
   let panels: GeneratedPanel[] = [];
   const startAt: number = existingPanels.length + 1 || 0;
@@ -35,6 +37,7 @@ export const getStoryContinuation = async ({
       maxNbPanels,
       existingPanels,
       llmVendorConfig,
+      test,
     });
 
     // console.log("LLM responded with panelCandidates:", panelCandidates)
