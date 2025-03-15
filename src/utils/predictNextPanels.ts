@@ -6,7 +6,7 @@ import { sleep } from './sleep';
 
 import { Preset } from './presets';
 import { predict } from './predict';
-import { getSystemPrompt } from './getSystemPrompt';
+// import { getSystemPrompt } from './getSystemPrompt';
 import { useSystemPrompt } from './useSystemPrompt';
 import { getUserPrompt } from './getUserPrompt';
 
@@ -27,6 +27,7 @@ export const predictNextPanels = async ({
   llmVendorConfig: LLMVendorConfig;
   test?: boolean;
 }): Promise<GeneratedPanel[]> => {
+  console.log(test);
   // console.log("predictNextPanels: ", { prompt, nbPanelsToGenerate })
   // throw new Error("Planned maintenance")
 
@@ -44,23 +45,28 @@ export const predictNextPanels = async ({
         ? 'last'
         : 'next';
 
-  let systemPrompt: string = '';
+  const systemPrompt: string = useSystemPrompt({
+    preset,
+    firstNextOrLast,
+    maxNbPanels,
+    nbPanelsToGenerate,
+  });
 
-  if (test) {
-    systemPrompt = useSystemPrompt({
-      preset,
-      firstNextOrLast,
-      maxNbPanels,
-      nbPanelsToGenerate,
-    });
-  } else {
-    systemPrompt = getSystemPrompt({
-      preset,
-      firstNextOrLast,
-      maxNbPanels,
-      nbPanelsToGenerate,
-    });
-  }
+  // if (test) {
+  //   systemPrompt = useSystemPrompt({
+  //     preset,
+  //     firstNextOrLast,
+  //     maxNbPanels,
+  //     nbPanelsToGenerate,
+  //   });
+  // } else {
+  //   systemPrompt = getSystemPrompt({
+  //     preset,
+  //     firstNextOrLast,
+  //     maxNbPanels,
+  //     nbPanelsToGenerate,
+  //   });
+  // }
 
   const userPrompt = getUserPrompt({
     prompt,

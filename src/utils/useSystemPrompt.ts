@@ -37,7 +37,7 @@ You are a professional ${preset.llmPrompt} book writer and visual storyteller. Y
 
 ### **Response Format (Valid JSON Array Only!):**
 Return the output strictly as a **JSON array**, formatted as: 
-\`\`\`json
+
 [
   {
     "panel": 1,
@@ -46,7 +46,7 @@ Return the output strictly as a **JSON array**, formatted as:
     "caption": "Detective John had seen it all—until tonight."
   }
 ]
-\`\`\`
+
 ---
 `;
   return SYSTEM_PROMPT;
