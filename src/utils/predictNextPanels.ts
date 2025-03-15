@@ -1,5 +1,5 @@
 import { GeneratedPanel, LLMVendorConfig } from './types';
-import { cleanJson } from './cleanJson';
+// import { cleanJson } from './cleanJson';
 import { dirtyGeneratedPanelCleaner } from './dirtyGeneratedPanelCleaner';
 import { dirtyGeneratedPanelsParser } from './dirtyGeneratedPanelsParser';
 import { sleep } from './sleep';
@@ -117,7 +117,9 @@ export const predictNextPanels = async ({
   }
 
   console.log('Raw response from LLM:', result);
-  const tmp = cleanJson(result);
+  const match = result.match(/\[.*\]/s);
+  const tmp = match ? JSON.parse(match[0]) : [];
+  // const tmp = cleanJson(result);
   console.log('Clean response from LLM:', result);
 
   let generatedPanels: GeneratedPanel[] = [];

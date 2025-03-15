@@ -35,8 +35,11 @@ You are a professional ${preset.llmPrompt} book writer and visual storyteller. Y
 - **Narrator captions** provide context or inner thoughts but should be **concise and impactful**.  
 - **Be engaging!** Make the story interesting, suspenseful, and immersive. 
 
-### **Response Format (Valid JSON Array Only!):**
-Return the output strictly as a **JSON array**, formatted as: 
+### Return **only a valid JSON array**, with **no extra text**, comments, or explanations.
+- Each panel must have:
+  1. **Scene description** (characters, setting, lighting, mood).
+  2. **Speech** in 1st person style (e.g., "I can't believe this is happening!").
+  3. **Caption** (for narration or inner thoughts).
 
 [
   {
