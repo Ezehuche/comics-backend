@@ -26,6 +26,7 @@ import { getValidBoolean } from 'src/utils/getValidBoolean';
 import { getValidNumber } from 'src/utils/getValidNumber';
 import { injectSpeechBubbleInTheBackground } from 'src/utils/generateSpeechBubble';
 import { urlUpload } from 'src/utils/upload';
+import { main } from 'src/utils/openCvs';
 
 interface Render {
   id: string;
@@ -352,6 +353,40 @@ export class TestController {
       return {
         message: 'Comics Generated Successfully.',
         pages: updatedPages,
+        code: 'AI-200',
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: error.response?.message || 'Error generating Comics.',
+          code: error.response?.code || 'AI-500',
+        },
+        error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('/convertPpt')
+  @ApiBody({
+    schema: {
+      example: {
+        url: '',
+      },
+    },
+  })
+  async convertPpt(@Body() body: any) {
+    try {
+      const {
+        url,
+      }: {
+        url: string;
+      } = body;
+
+      const location = await main(url);
+
+      return {
+        message: 'PowerPoint Converted Successfully.',
+        url: location,
         code: 'AI-200',
       };
     } catch (error) {

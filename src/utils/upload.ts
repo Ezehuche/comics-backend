@@ -71,7 +71,7 @@ export async function urlUpload(file: string, filename: string) {
 
     const command = new PutObjectCommand({ ...params });
     await R2.send(command);
-    const location = `${CLOUDFLARE_BUCKET_URL}/resources/${fileHash}/${sluggedName}.${parts.length === 2 ? parts[1] : ''}`;
+    const location = `${CLOUDFLARE_BUCKET_URL}/comics/${fileHash}/${sluggedName}.${parts.length === 2 ? parts[1] : ''}`;
 
     return { location: location };
   } catch (err) {
@@ -79,3 +79,22 @@ export async function urlUpload(file: string, filename: string) {
     return { Error: err };
   }
 }
+
+export const uploadToCloudflareR2 = async (
+  buffer: Buffer,
+  key: string,
+): Promise<{ location: string }> => {
+  const command = new PutObjectCommand({
+    Bucket: process.env.CLOUDFLARE_BUCKETNAME!, // Replace with your R2 bucket name
+    Key: key, // The file name/key in R2
+    Body: buffer, // The PPTX file buffer
+    ContentType:
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // MIME type for PPTX
+  });
+
+  await R2.send(command);
+  console.log(`File uploaded to Cloudflare R2: ${key}`);
+  const location = `${CLOUDFLARE_BUCKET_URL}/${key}}`;
+
+  return { location: location };
+};

@@ -258,6 +258,8 @@ export async function newRender({
               width,
               height,
               negative_prompt: negativePrompt,
+              refine: 'expert_ensemble_refiner',
+              high_noise_frac: 0.8,
               seed,
               ...(replicateApiModelTrigger && {
                 lora_scale: 0.85, // we generally want something high here

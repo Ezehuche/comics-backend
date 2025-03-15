@@ -360,7 +360,7 @@ export class GenerateController {
             let speechUrl: string | undefined = '';
             if (speechBubble) {
               const bubble = await addSpeechBubble(
-                scene.assetUrl,
+                newRendered.assetUrl,
                 scene.speech,
                 bubbleShape,
                 fontSize,
@@ -527,10 +527,15 @@ export class GenerateController {
         settings: settings as Settings,
       });
 
+      const newRendered: any = await getRender(
+        render?.renderId as string,
+        settings,
+      );
+
       let speechUrl: string | undefined = '';
       if (speechBubble) {
         const bubble = await addSpeechBubble(
-          render.assetUrl,
+          newRendered.assetUrl,
           panels[0].speech,
           bubbleShape,
           fontSize,
@@ -539,16 +544,16 @@ export class GenerateController {
           speechUrl = bubble.url;
         }
       }
-      render['speechUrl'] = speechUrl;
+      newRendered['speechUrl'] = speechUrl;
 
-      render['width'] = width;
-      render['height'] = height;
-      render['speech'] = panels[0].speech;
-      render['id'] = id;
+      newRendered['width'] = width;
+      newRendered['height'] = height;
+      newRendered['speech'] = panels[0].speech;
+      newRendered['id'] = id;
       return {
         message: 'Comics Redraw Successfully.',
         id,
-        newRenderedScene: render,
+        newRenderedScene: newRendered,
         storyPanel: panels[0],
         code: 'AI-200',
       };
