@@ -22,7 +22,7 @@ const serverHuggingfaceInferenceApiFileType = `${process.env.RENDERING_HF_INFERE
 
 const serverReplicateApiKey = `${process.env.AUTH_REPLICATE_API_TOKEN || ''}`;
 const serverReplicateApiModel = `${process.env.RENDERING_REPLICATE_API_MODEL || ''}`;
-const serverReplicateApiModelVersion = `${process.env.RENDERING_REPLICATE_API_MODEL_VERSION || ''}`;
+// const serverReplicateApiModelVersion = `${process.env.RENDERING_REPLICATE_API_MODEL_VERSION || ''}`;
 const serverReplicateApiModelTrigger = `${process.env.RENDERING_REPLICATE_API_MODEL_TRIGGER || ''}`;
 
 const videochainToken = `${process.env.AUTH_VIDEOCHAIN_API_TOKEN || ''}`;
@@ -31,6 +31,16 @@ const videochainApiUrl = `${process.env.RENDERING_VIDEOCHAIN_API_URL || ''}`;
 const serverOpenaiApiKey = `${process.env.AUTH_OPENAI_API_KEY || ''}`;
 const serverOpenaiApiBaseUrl = `${process.env.RENDERING_OPENAI_API_BASE_URL || 'https://api.openai.com/v1'}`;
 const serverOpenaiApiModel = `${process.env.RENDERING_OPENAI_API_MODEL || 'dall-e-3'}`;
+
+const getAspectRatio = (width: number, height: number): string => {
+  const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+
+  const divisor = gcd(width, height);
+  const aspectWidth = width / divisor;
+  const aspectHeight = height / divisor;
+
+  return `${aspectWidth}:${aspectHeight}`;
+};
 
 export async function newRender({
   prompt,
@@ -76,7 +86,7 @@ export async function newRender({
 
   let replicateApiKey = serverReplicateApiKey;
   let replicateApiModel = serverReplicateApiModel;
-  let replicateApiModelVersion = serverReplicateApiModelVersion;
+  // let replicateApiModelVersion = serverReplicateApiModelVersion;
   let replicateApiModelTrigger = serverReplicateApiModelTrigger;
 
   let huggingfaceApiKey = serverHuggingfaceApiKey;
@@ -115,7 +125,7 @@ export async function newRender({
     renderingEngine = 'REPLICATE';
     replicateApiKey = settings.replicateApiKey;
     replicateApiModel = settings.replicateApiModel;
-    replicateApiModelVersion = settings.replicateApiModelVersion;
+    // replicateApiModelVersion = settings.replicateApiModelVersion;
     replicateApiModelTrigger = settings.replicateApiModelTrigger;
   } else if (
     settings.renderingModelVendor === 'HUGGINGFACE' &&
@@ -234,6 +244,41 @@ export async function newRender({
       //   }
       // })
 
+      // const startResponse = await fetch(
+      //   'https://api.replicate.com/v1/predictions',
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: 'Token ' + replicateApiKey,
+      //     },
+      //     body: JSON.stringify({
+      //       version: replicateApiModelVersion,
+      //       input: {
+      //         prompt: [
+      //           'beautiful',
+      //           // "intricate details",
+      //           replicateApiModelTrigger || '',
+      //           prompt,
+      //           'award winning',
+      //           'high resolution',
+      //         ]
+      //           .filter((x) => x)
+      //           .join(', '),
+      //         width,
+      //         height,
+      //         negative_prompt: negativePrompt,
+      //         refine: 'expert_ensemble_refiner',
+      //         high_noise_frac: 0.8,
+      //         seed,
+      //         ...(replicateApiModelTrigger && {
+      //           lora_scale: 0.85, // we generally want something high here
+      //         }),
+      //       },
+      //     }),
+      //   },
+      // );
+
       const startResponse = await fetch(
         'https://api.replicate.com/v1/predictions',
         {
@@ -243,7 +288,8 @@ export async function newRender({
             Authorization: 'Token ' + replicateApiKey,
           },
           body: JSON.stringify({
-            version: replicateApiModelVersion,
+            version:
+              '2a6b576af31790b470f0a8442e1e9791213fa13799cbb65a9fc1436e96389574',
             input: {
               prompt: [
                 'beautiful',
@@ -255,15 +301,12 @@ export async function newRender({
               ]
                 .filter((x) => x)
                 .join(', '),
-              width,
-              height,
-              negative_prompt: negativePrompt,
-              refine: 'expert_ensemble_refiner',
-              high_noise_frac: 0.8,
+              hf_lora: 'alvdansen/frosting_lane_flux',
+              lora_scale: 0.8,
+              aspect_ratio: getAspectRatio(width, height),
+              // negative_prompt: negativePrompt,
+              output_format: 'png',
               seed,
-              ...(replicateApiModelTrigger && {
-                lora_scale: 0.85, // we generally want something high here
-              }),
             },
           }),
         },
