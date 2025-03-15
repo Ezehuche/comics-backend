@@ -298,6 +298,7 @@ export async function newRender({
                 prompt,
                 'award winning',
                 'high resolution',
+                'no speech bubble, caption or subtitle',
               ]
                 .filter((x) => x)
                 .join(', '),
