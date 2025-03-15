@@ -1,7 +1,7 @@
 import { LLMVendor, RenderingModelVendor, Settings } from './types';
 
 export const defaultSettings: Settings = {
-  renderingModelVendor: 'SERVER' as RenderingModelVendor,
+  renderingModelVendor: 'REPLICATE' as RenderingModelVendor,
   renderingUseTurbo: false,
   llmVendor: 'SERVER' as LLMVendor,
   huggingFaceOAuth: '',
