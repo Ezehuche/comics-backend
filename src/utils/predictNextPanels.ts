@@ -117,15 +117,15 @@ export const predictNextPanels = async ({
   }
 
   console.log('Raw response from LLM:', result);
-  const match = result.match(/\[.*\]/s);
-  const tmp = match ? JSON.parse(match[0]) : [];
+  // const match = result.match(/\[.*\]/s);
+  // const tmp = match ? JSON.parse(match[0]) : [];
   // const tmp = cleanJson(result);
   console.log('Clean response from LLM:', result);
 
   let generatedPanels: GeneratedPanel[] = [];
 
   try {
-    generatedPanels = dirtyGeneratedPanelsParser(tmp);
+    generatedPanels = dirtyGeneratedPanelsParser(result);
     console.log('Parsed response from LLM:', result);
   } catch (err) {
     console.log(err);
@@ -135,7 +135,7 @@ export const predictNextPanels = async ({
     // in case of failure here, it might be because the LLM hallucinated a completely different response,
     // such as markdown. There is no real solution.. but we can try a fallback:
 
-    generatedPanels = tmp
+    generatedPanels = result
       .split('*')
       .map((item) => item.trim())
       .map((cap, i) => ({
