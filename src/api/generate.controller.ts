@@ -285,7 +285,7 @@ export class GenerateController {
       // }
 
       const newConfig = {
-        vendor: 'OPENAI' as LLMVendor,
+        vendor: 'SERVER' as LLMVendor,
         apiKey: process.env.AUTH_OPENAI_API_KEY as string,
         modelId: process.env.LLM_OPENAI_API_MODEL as string,
       };
